@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.*;
 
+// A class to manage the manipulation of data in database and display of requested student details
 public class StudentManager {
+	//A variable to track and assign id(primary key) to the database
 	private static int studentId = 1;
-	static List<Student> list = new ArrayList<>();
+	// static List<Student> list = new ArrayList<>();
 
-	
-	public StudentManager() throws SQLException, ClassNotFoundException {
+	// A private constructor to avoid the object creation by other classes
+	private StudentManager() {
 
 	}
-	
+
+	//add new students
 	public static void addStudent(String studentName, int studentRoll, String studentCourse) throws ClassNotFoundException, SQLException {
 		
 
-		list.add(new Student(studentId++, studentName, studentRoll, studentCourse));
+		// list.add(new Student(studentId++, studentName, studentRoll, studentCourse));
 		
 		String query = "INSERT INTO students (studentName, studentRoll, studentCourse)"
 				+ " values(?,?,?)";
@@ -29,6 +32,8 @@ public class StudentManager {
 		preparedStatement.execute();
 		connection.close();
 	}
+
+	//view student of given id 
 	public static Student getStudent(int id) throws ClassNotFoundException, SQLException {
 //		for(int i=0; i<list.size();i++) {
 //			if(id == list.get(i).getStudentID()) return list.get(i);
@@ -45,7 +50,8 @@ public class StudentManager {
 		return new Student(resultSet.getInt(1),resultSet.getString(2),resultSet.getInt(3), resultSet.getString(4));
 		
 	}
-	
+
+	//update student of given id
 	public static boolean updateStudent(int id, String studentName, int studentRoll, String studentCourse) throws SQLException, ClassNotFoundException {
 //		for(int i=0; i<list.size();i++) {
 //			if(id == list.get(i).getStudentID()) {
@@ -61,9 +67,9 @@ public class StudentManager {
 		Connection connection = DbConnection.connectDatabase();
 		PreparedStatement preparedStatement = connection.prepareStatement(query);
 		preparedStatement.setString(1, studentName);
-        preparedStatement.setInt(2, studentRoll);
-        preparedStatement.setString(3, studentCourse);
-        preparedStatement.setInt(4, id);
+        	preparedStatement.setInt(2, studentRoll);
+        	preparedStatement.setString(3, studentCourse);
+        	preparedStatement.setInt(4, id);
 
 		preparedStatement.executeUpdate();
 		connection.close();
@@ -71,6 +77,7 @@ public class StudentManager {
 	
 	}
 	
+	//delete a student of given id
 	public static boolean deleteStudent(int id) throws ClassNotFoundException, SQLException {
 //		for(int i=0; i<list.size();i++) {
 //			if(id == list.get(i).getStudentID()) {
@@ -90,6 +97,12 @@ public class StudentManager {
 		return true;
 	}
 }
+
+
+
+// Notes:
+
+// Absolute method unuseable in default resultSet(TYPE_FORWARD_ONLY):
 
 //The exception you're encountering indicates that the ResultSet object you're working 
 //with is of type ResultSet.TYPE_FORWARD_ONLY, which does not support the absolute() method.
