@@ -110,4 +110,7 @@ public class StudentManager {
 //a query, especially if the statement is created without specifying a result set type explicitly.
 //
 //To use the absolute() method, you need to create a scrollable ResultSet. You can do 
-//this by specifying the appropriate result set type when creating the Statement object. Here's how you can modify your code to create a scrollable ResultSet:
+//this by specifying the appropriate result set type when creating the Statement object. 
+// Here's how you can modify your code to create a scrollable ResultSet:
+
+// 
